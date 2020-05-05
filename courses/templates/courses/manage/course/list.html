@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head_title %}My courses{% endblock head_title %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'modern-admin/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'modern-admin/app-assets/vendors/css/ui/jquery-ui.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'modern-admin/app-assets/vendors/css/forms/selects/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'modern-admin/app-assets/css/core/colors/palette-gradient.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">My Course List</h4>
+            <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+            <div class="heading-elements">
+                <a href="{% url "course_create" %}">
+                    <button class="btn btn-primary btn-sm"><i class="ft-plus white"></i> New Course</button>
+                </a>
+
+                <button class="btn btn-success btn-sm"><i class="ft-settings white"></i></button>
+            </div>
+        </div>
+        <div class="card-content">
+            <div class="card-body">
+                <!-- Task List table -->
+                <div class="table-responsive">
+                    <table id="project-task-list"
+                           class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
+                        <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Owner</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- ABC Project -->
+                        {% for course in object_list %}
+                            <tr>
+                                <td>
+                                    <a href="#" class="text-bold-600">{{ course.title }}</a>
+                                    <p class="text-muted">Phasellus vel elit volutpat, egestas urna a, pharetra
+                                        nibh.</p>
+                                </td>
+
+                                <td class="text-center">
+                                                        <span class="avatar avatar-busy">
+
+                                                            <img src="{% static 'modern-admin/app-assets/images/portrait/small/avatar-s-3.png' %}"
+                                                                 alt="avatar" data-toggle="tooltip"
+                                                                 data-placement="right"
+                                                                 title="{{ course.owner.username }}"><i
+                                                                class=""></i>
+                                                        </span>
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false"
+                                                class="btn btn-info dropdown-toggle"><i
+                                                class="la la-cog align-middle"></i>
+                                        </button>
+                                        <div aria-labelledby="btnSearchDrop2"
+                                             class="dropdown-menu mt-1 dropdown-menu-right">
+                                            <a href="{% url "course_edit" course.id %}" class="dropdown-item"><i
+                                                    class="ft-eye"></i> Edit course</a>
+                                            <a href="{% url "course_module_update" course.id %}"
+                                               class="dropdown-item"><i class="ft-check"></i> Edit modules</a>
+
+                                            {% if course.modules.count > 0 %}
+                                                <a href="{% url "module_content_list" course.modules.first.id %}"
+                                                   class="dropdown-item"><i class="ft-upload"></i> Manage contents</a>
+                                            {% endif %}
+
+
+                                            <div class="dropdown-divider"></div>
+                                            <a href="{% url "course_delete" course.id %}" class="dropdown-item"><i
+                                                    class="ft-trash"></i> Delete course</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <p>You haven't created any courses yet.</p>
+                        {% endfor %}
+
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
+                <!--/ Task List table -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'modern-admin/app-assets/vendors/js/tables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'modern-admin/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'modern-admin/app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'modern-admin/app-assets/js/scripts/ui/jquery-ui/date-pickers.js' %}"></script>
+    <script src="{% static 'modern-admin/app-assets/vendors/js/forms/select/select2.min.js' %}"></script>
+    <!-- BEGIN: Page JS-->
+    <script rc="{% static 'modern-admin/app-assets/js/scripts/pages/project-task-list.js' %}"></script>
+    <!-- END: Page JS-->
+{% endblock script %}

@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords"
+          content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="PIXINVENT">
+    <title>{% block head_title %}Umanet{% endblock head_title %}</title>
+
+    <link rel="apple-touch-icon" href="{% static 'modern-admin/app-assets/images/ico/apple-icon-120.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'modern-admin/app-assets/images/ico/favicon.ico' %}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
+          rel="stylesheet' %}">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'modern-admin/app-assets/vendors/css/vendors.min.css' %}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'modern-admin/app-assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'modern-admin/app-assets/css/bootstrap-extended.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'modern-admin/app-assets/css/colors.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'modern-admin/app-assets/css/components.css' %}">
+
+    <!-- END: Theme CSS-->
+    {% block stylesheet %}
+
+    {% endblock stylesheet %}
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'modern-admin/app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'modern-admin/assets/css/style.css' %}">
+    <!-- END: Custom CSS-->
+
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu"
+      data-col="2-columns">
+
+<!-- BEGIN: Header-->
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-light bg-info navbar-shadow">
+    <div class="navbar-wrapper">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mobile-menu d-md-none mr-auto"><a
+                        class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
+                        class="ft-menu font-large-1"></i></a></li>
+                <li class="nav-item"><a class="navbar-brand"
+                                        href="{% static 'modern-admin/html/ltr/vertical-menu-template/index.html' %}">
+                    <img class="brand-logo" alt="modern admin logo"
+                         src="{% static 'modern-admin/app-assets/images/logo/logo.jpg' %}">
+                    <h3 class="brand-text">Umanet</h3>
+                </a></li>
+                <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse"
+                                                  data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
+            </ul>
+        </div>
+        <div class="navbar-container content">
+            <div class="collapse navbar-collapse" id="navbar-mobile">
+                <ul class="nav navbar-nav mr-auto float-left">
+                    <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs"
+                                                              href="#"><i class="ft-menu"></i></a></li>
+                </ul>
+                <ul class="nav navbar-nav float-right">
+                    <form class="form-inline float-left" action="{% url 'funzione_cerca' %}">
+                        <button type="submit" class="btn btn-light mt-2 mx-1">Cerca</button>
+                        <label class="sr-only" for="inlineFormInput">Cerca</label>
+                        <input name="q" type="text" class="form-control mt-2 mr-1" id="inlineFormInput"
+                               placeholder="Cerca nel social">
+
+                    </form>
+                    {% if request.user.is_authenticated %}
+                        <li class="dropdown dropdown-user nav-item"><a
+                                class="dropdown-toggle nav-link dropdown-user-link"
+                                href="#" data-toggle="dropdown"><span
+                                class="mr-1 use  r-name text-bold-700">{{ request.user.username }}</span><span
+                                class="avatar avatar-online"><img
+                                src="{% static 'modern-admin/app-assets/images/portrait/small/avatar-s-19.png' %}"
+                                alt="avatar"><i></i></span></a>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                                                              href="{% url 'user_profile' username=request.user.username %}"><i
+                                    class="ft-user"></i> User Profile</a><a class="dropdown-item"
+                                                                            href="{% url 'password_change' %}"><i
+                                    class="ft-clipboard"></i> Password change</a><a class="dropdown-item"
+                                                                                    href="user-cards.html"><i
+                                    class="ft-check-square"></i> Task</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'logout' %}"><i class="ft-power"></i> Logout</a>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="dropdown dropdown-user nav-item"><a
+                                class="dropdown-toggle nav-link dropdown-user-link"
+                                href="#" data-toggle="dropdown"><span
+                                class="mr-1 user-name text-bold-700">John Doe</span><span
+                                class="avatar avatar-online"><img
+                                src="{% static 'modern-admin/app-assets/images/portrait/small/avatar-s-19.png' %}"
+                                alt="avatar"><i></i></span></a>
+                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                                                              href="{% url 'login' %}"><i
+                                    class="ft-user"></i> Login</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'registration' %}"><i class="ft-power"></i> Sign
+                                    in</a>
+                            </div>
+                        </li>
+
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- END: Header-->
+
+
+<!-- BEGIN: Main Menu-->
+
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+    <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <li class=" nav-item"><a href="{% static 'modern-admin/html/ltr/vertical-menu-template/index.html' %}"><i
+                    class="la la-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span
+                    class="badge badge badge-info badge-pill float-right">5</span></a>
+            </li>
+
+            <li class=" nav-item"><a href="#"><i class="ft-user"></i><span class="menu-title"
+                                                                           data-i18n="Accounts">Accounts</span></a>
+                <ul class="menu-content">
+
+                    {% if request.user.is_authenticated %}
+                        <li><a class="menu-item" href="{% url 'logout' %}"><i></i><span
+                                data-i18n="1 column">Logout</span></a>
+                        </li>
+                        <li><a class="menu-item" href=" {% url 'user_profile' username=request.user.username %}"><i></i><span
+                                data-i18n="1 column">User profile</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{% url 'user_list' %}"><i></i><span
+                                data-i18n="1 column">Users</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{% url 'password_change' %}"><i></i><span
+                                data-i18n="1 column">Password change</span></a>
+                        </li>
+                    {% else %}
+                        <li><a class="menu-item" href="{% url 'login' %}"><i></i><span
+                                data-i18n="1 column">Login</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{% url 'registration' %}"><i></i><span
+                                data-i18n="1 column">Registration</span></a>
+                        </li>
+
+                    {% endif %}
+
+
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="#"><i class="ft-cloud"></i><span class="menu-title"
+                                                                            data-i18n="Accounts">Courses</span></a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="{% url 'course_list' %}"><i></i><span
+                            data-i18n="1 column">Course list</span></a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li><a class="menu-item" href="{% url 'manage_course_list' %}"><i></i><span
+                                data-i18n="1 column">My course list</span></a>
+                        </li>
+                    {% endif %}
+
+
+                </ul>
+            </li>
+            {% if request.user.is_authenticated %}
+                <li class=" nav-item"><a href="#"><i class="ft-share-2"></i><span class="menu-title" data-i18n="API">API</span></a>
+                    <ul class="menu-content">
+                        <li><a class="menu-item" href="/api/subjects"><i></i><span
+                                data-i18n="1 column">Subject</span></a>
+                        </li>
+                        <li><a class="menu-item" href="/api/courses"><i></i><span
+                                data-i18n="1 column">Courses</span></a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+
+
+            <li class=" navigation-header"><span data-i18n="Apps">Apps</span><i class="la la-ellipsis-h"
+                                                                                data-toggle="tooltip"
+                                                                                data-placement="right"
+                                                                                data-original-title="Apps"></i>
+            </li>
+            <li class=" nav-item"><a href="{% url 'homepageforum' %}"><i class="la la-share-alt"></i><span
+                    class="menu-title" data-i18n="ToDo">Forum</span></a>
+            </li>
+            <!--
+              <li class=" nav-item"><a href="app-contacts.html"><i class="la la-users"></i><span class="menu-title" data-i18n="Contacts">Contacts</span></a>
+              </li>
+              <li class=" nav-item"><a href="app-email.html"><i class="la la-envelope"></i><span class="menu-title" data-i18n="Email">Email</span></a>
+              </li>
+              <li class=" nav-item"><a href="app-chat.html"><i class="la la-comments"></i><span class="menu-title" data-i18n="Chat">Chat</span></a>
+              </li>
+              <li class=" nav-item"><a href="app-kanban.html"><i class="la la-file-text"></i><span class="menu-title" data-i18n="Kanban">Kanban</span></a>
+              </li>-->
+        </ul>
+
+    </div>
+</div>
+
+<!-- END: Main Menu-->
+<!-- BEGIN: Content-->
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-2">
+                <h3 class="content-header-title">Breadcrumbs with search</h3>
+                <div class="row breadcrumbs-top">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Umanet</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#">Page headers</a>
+                            </li>
+                            <li class="breadcrumb-item active">Breadcrumbs with search
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-header-right col-md-6 col-12">
+                <fieldset class="form-group relative has-icon-left col-md-5 col-12 float-right p-0">
+                    <input class="form-control round" id="iconLeft" type="text" placeholder="Search...">
+                    <div class="form-control-position"><i class="la la-search"></i></div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="content-body">
+            <section class="row">
+                <div class="col-sm-12">
+                    {% block content %}
+
+                    {% endblock content %}
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<!-- BEGIN: Footer-->
+<footer class="footer footer-static footer-light navbar-border navbar-shadow">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span
+            class="float-md-left d-block d-md-inline-block">Copyright &copy; 2019 <a class="text-bold-800 grey darken-2"
+                                                                                     href="https://1.envato.market/modern_admin"
+                                                                                     target="_blank">PIXINVENT</a></span><span
+            class="float-md-right d-none d-lg-block">Hand-crafted & Made with<i class="ft-heart pink"></i><span
+            id="scroll-top"></span></span></p>
+</footer>
+<!-- END: Footer-->
+
+
+<!-- BEGIN: Vendor JS-->
+<script src="{% static 'modern-admin/app-assets/vendors/js/vendors.min.js' %}"></script>
+<!-- END: Page Vendor JS-->
+<!--
+<script src="{% static 'modern-admin/app-assets/vendors/js/editors/ckeditor/ckeditor-super-build.js' %}"></script>
+-->
+<!-- BEGIN: Theme JS-->
+<script src="{% static 'modern-admin/app-assets/js/core/app-menu.js' %}"></script>
+<script src="{% static 'modern-admin/app-assets/js/core/app.js' %}"></script>
+<!-- END: Theme JS-->
+<!--
+<script src="{% static 'modern-admin/app-assets/js/scripts/editors/editor-ckeditor.js' %}"></script>
+-->
+{% block script %}
+
+{% endblock script %}
+
+</body>
+<!-- END: Body-->
+
+</html>

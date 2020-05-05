@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static %}
+{% load course %}
+
+{% block title %}
+    Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock title %}
+
+{% block content %}
+    {% with course=module.course %}
+
+        <div class="row match-height">
+            <!-- Description lists horizontal -->
+            <div class="col-sm-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Course "{{ course.title }}" </h1>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <div class="contents">
+                                    <h3>Modules</h3>
+                                    <ul id="modules">
+                                        {% for m in course.modules.all %}
+                                            <li data-id="{{ m.id }}" {% if m == module %}
+                                                class="selected"{% endif %}>
+                                                <a href="{% url "module_content_list" m.id %}">
+                                                    {{ m.title }}
+                                                </a>
+                                            </li>
+                                        {% empty %}
+                                            <li>No modules yet.</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <p><a href="{% url "course_module_update" course.id %}">
+                                        Edit modules</a></p>
+                                </div>
+                            <hr>
+                                <div class="module">
+                                    <h2>{{ module.title }}</h2>
+                                    <h3>Module contents:</h3>
+
+                                    <div id="module-contents">
+                                        {% for content in module.contents.all %}
+                                            <div data-id="{{ content.id }}">
+                                                {% with item=content.item %}
+                                                    <p>{{ item }} ({{ item|model_name }})</p>
+                                                    <a href="{% url "module_content_update" module.id item|model_name item.id %}">
+                                                         <input type="button" class="btn btn-info my-1" value="Edit">
+                                                    </a>
+                                                    <form action="{% url "module_content_delete" content.id %}"
+                                                          method="post">
+                                                        <input type="submit" class="btn btn-danger my-1" value="Delete">
+                                                        {% csrf_token %}
+                                                    </form>
+                                                {% endwith %}
+                                            </div>
+                                        {% empty %}
+                                            <p>This module has no contents yet.</p>
+                                        {% endfor %}
+                                        <h3>Add new content:</h3>
+                                        <ul class="content-types">
+                                            <li><a href="{% url "module_content_create" module.id "text" %}">
+                                                Text</a></li>
+                                            <li><a href="{% url "module_content_create" module.id "image" %}">
+                                                Image</a></li>
+                                            <li><a href="{% url "module_content_create" module.id "video" %}">
+                                                Video</a></li>
+                                            <li><a href="{% url "module_content_create" module.id "file" %}">
+                                                File</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Description lists horizontal-->
+                </div>
+
+
+            </div>
+
+        </div>
+    {% endwith %}
+    {% block stylesheet %}
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'modern-admin/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css' %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'modern-admin/app-assets/vendors/css/ui/jquery-ui.min.css' %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'modern-admin/app-assets/vendors/css/forms/selects/select2.min.css' %}">
+        <link rel="stylesheet" type="text/css"
+              href="{% static 'modern-admin/app-assets/css/core/colors/palette-gradient.css' %}">
+    {% endblock stylesheet %}
+
+
+    {% block script %}
+        <script src="{% static 'modern-admin/app-assets/vendors/js/tables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'modern-admin/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'modern-admin/app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js' %}"></script>
+        <script src="{% static 'modern-admin/app-assets/js/scripts/ui/jquery-ui/date-pickers.js' %}"></script>
+        <script src="{% static 'modern-admin/app-assets/vendors/js/forms/select/select2.min.js' %}"></script>
+        <!-- BEGIN: Page JS-->
+        <script rc="{% static 'modern-admin/app-assets/js/scripts/pages/project-task-list.js' %}"></script>
+        <!-- END: Page JS-->
+    {% endblock script %}
+
+
+
+
+{% endblock %}
+
+{% block domready %}
+    $('#modules').sortable({
+    stop: function(event, ui) {
+    modules_order = {};
+    $('#modules').children().each(function(){
+    // update the order field
+    $(this).find('.order').text($(this).index() + 1);
+    // associate the module's id with its order
+    modules_order[$(this).data('id')] = $(this).index();
+    });
+    $.ajax({
+    type: 'POST',
+    url: '{% url "module_order" %}',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    data: JSON.stringify(modules_order)
+    });
+    }
+    });
+
+    $('#module-contents').sortable({
+    stop: function(event, ui) {
+    contents_order = {};
+    $('#module-contents').children().each(function(){
+    // associate the module's id with its order
+    contents_order[$(this).data('id')] = $(this).index();
+    });
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url "content_order" %}',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
+    data: JSON.stringify(contents_order),
+    });
+    }
+    });
+{% endblock %}

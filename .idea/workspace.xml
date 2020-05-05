@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96559e05-2ae7-48d9-b532-8db35ef837f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
-    </list>
+    <list default="true" id="96559e05-2ae7-48d9-b532-8db35ef837f9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +24,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -231,7 +229,7 @@
       <workItem from="1588603859937" duration="103000" />
       <workItem from="1588604045189" duration="392000" />
       <workItem from="1588622779768" duration="2361000" />
-      <workItem from="1588676036698" duration="2783000" />
+      <workItem from="1588676036698" duration="2972000" />
     </task>
     <servers />
   </component>
@@ -287,11 +285,11 @@
     <state width="1412" height="227" key="GridCell.Tab.0.right/0.23.2560.995@0.23.2560.995" timestamp="1588568964410" />
     <state width="1571" height="227" key="GridCell.Tab.0.right/0.23.2560.996@0.23.2560.996" timestamp="1588600476159" />
     <state width="1571" height="227" key="GridCell.Tab.0.right/0.23.2560.997@0.23.2560.997" timestamp="1588603559850" />
-    <state x="492" y="267" key="SettingsEditor" timestamp="1588676075443">
+    <state x="492" y="267" key="SettingsEditor" timestamp="1588681406466">
       <screen x="0" y="23" width="2560" height="992" />
     </state>
     <state x="1301" y="199" key="SettingsEditor/0.23.2560.1057@0.23.2560.1057" timestamp="1588522405720" />
-    <state x="492" y="267" key="SettingsEditor/0.23.2560.992@0.23.2560.992" timestamp="1588676075443" />
+    <state x="492" y="267" key="SettingsEditor/0.23.2560.992@0.23.2560.992" timestamp="1588681406466" />
     <state x="1445" y="277" width="600" height="486" key="find.popup" timestamp="1588602437244">
       <screen x="0" y="23" width="2560" height="997" />
     </state>
